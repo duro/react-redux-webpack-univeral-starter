@@ -16,14 +16,14 @@ module.exports = {
     'main': [
       'webpack-dev-server/client?http://' + host + ':' + port,
       'webpack/hot/only-dev-server',
-      './src/client.js'
+      './src/client/client.js'
     ]
   },
   output: {
     path: assetsPath,
     filename: '[name]-[hash].js',
     chunkFilename: '[name]-[chunkhash].js',
-    publicPath: 'http://' + host + ':' + port + '/dist/'
+    publicPath: 'http://' + host + ':' + port + '/static/dist/'
   },
   module: {
     loaders: [

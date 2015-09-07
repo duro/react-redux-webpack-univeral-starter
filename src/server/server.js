@@ -1,6 +1,6 @@
 import Glue from 'glue'
-import Manifest from './manifest'
-import AppConfig from './config'
+import Manifest from 'server/manifest'
+import ServerConfig from 'server/config'
 
 const composeOptions = {
     relativeTo: __dirname
@@ -19,6 +19,7 @@ Composer((err, server) => {
     const ui = server.select('ui');
     const api = server.select('api');
 
-    server.log(['server', 'info'], `==> 🌎  ${ AppConfig.meta('/').name } running on port ${ ui.info.port }, API on port ${ api.info.port }`);
+    server.log(['server', 'info'], `==> 🌎  ${ ServerConfig.meta('/').name } running on port ${ ui.info.port }, API on port ${ api.info.port }`);
+
   });
 })

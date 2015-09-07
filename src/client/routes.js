@@ -1,8 +1,8 @@
 import React from 'react';
 import {Route} from 'react-router';
-import App from 'views/App';
-import Home from 'views/Home';
-import NotFound from 'views/NotFound'
+import App from 'client/views/App';
+import Home from 'client/views/Home';
+import NotFound from 'client/views/NotFound'
 
 export default function(store) {
   return (

@@ -1,5 +1,5 @@
 import Confidence from 'confidence'
-import AppConfig from './config'
+import ServerConfig from 'server/config'
 import path from 'path'
 import GoodConsole from 'good-console'
 
@@ -10,17 +10,15 @@ const criteria = {
 const manifest = {
   $meta: 'Our main server manifest',
   server: {},
-  connections: AppConfig.get('/connections'),
+  connections: ServerConfig.get('/connections'),
   plugins: {
-    'good': AppConfig.get('/logging'),
+    'good': ServerConfig.get('/logging'),
     './ui': {},
     './api': {}
   }
 };
 
-
 const store = new Confidence.Store(manifest);
-
 
 exports.get = (key) => {
   return store.get(key, criteria);

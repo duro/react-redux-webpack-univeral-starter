@@ -1,5 +1,5 @@
 import superagent from 'superagent';
-import config from 'config';
+import config from 'client/config';
 
 /*
  * This silly underscore is here to avoid a mysterious "ReferenceError: ApiClient is not defined" error.
@@ -14,17 +14,22 @@ class ApiClient_ {
         this[method] = (path, options) => {
           return new Promise((resolve, reject) => {
             const request = superagent[method](this.formatUrl(path));
+
             if (options && options.params) {
               request.query(options.params);
             }
+
             if (__SERVER__) {
-              if (req.get('cookie')) {
-                request.set('cookie', req.get('cookie'));
-              }
+              // TODO: Cookie Support
+              // if (req.get('cookie')) {
+              //   request.set('cookie', req.get('cookie'));
+              // }
             }
+
             if (options && options.data) {
               request.send(options.data);
             }
+
             request.end((err, res) => {
               if (err) {
                 reject(res.body || err);
@@ -40,14 +45,17 @@ class ApiClient_ {
   /* This was originally a standalone function outside of this class, but babel kept breaking, and this fixes it  */
   formatUrl(path) {
     const adjustedPath = path[0] !== '/' ? '/' + path : path;
+
     if (__SERVER__) {
       // Prepend host and port of the API server to the path.
       return 'http://localhost:' + config.apiPort + adjustedPath;
     }
+
     // Prepend `/api` to relative URL, to proxy to API server.
     return '/api' + adjustedPath;
   }
 }
+
 const ApiClient = ApiClient_;
 
 export default ApiClient;

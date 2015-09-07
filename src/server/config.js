@@ -29,22 +29,16 @@ var config = {
         reporter: require('good-console'),
         events: { log: '*', response: '*' }
     }]
-  },
-
-
+  }
 
 }
 
 var store = new Confidence.Store(config);
 
-
 exports.get = (key) => {
-
     return store.get(key, criteria);
 };
 
-
 exports.meta = (key) => {
-
     return store.meta(key, criteria);
 };

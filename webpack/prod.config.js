@@ -17,13 +17,13 @@ module.exports = {
   devtool: 'source-map',
   context: path.resolve(__dirname, '..'),
   entry: {
-    'main': './src/client.js'
+    'main': './src/client/client.js'
   },
   output: {
     path: assetsPath,
     filename: '[name]-[chunkhash].js',
     chunkFilename: '[name]-[chunkhash].js',
-    publicPath: '/dist/'
+    publicPath: '/static/dist/'
   },
   module: {
     loaders: [

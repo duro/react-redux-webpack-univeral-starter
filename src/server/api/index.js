@@ -1,16 +1,20 @@
+import ServerConfig from 'server/config'
+
 export function register(server, options, next) {
 
   const api = server.select('api');
 
-  api.route({
-    method: ['GET'],
-    path:'/{param*}',
-    handler: (request, reply) => {
-      reply('Hello World!');
-    }
-  })
+  server.register([
 
-  next()
+    require('./hello')
+
+  ], (err) => {
+    if (err) throw err;
+
+    server.log(['server', 'api', 'info'], '==> ✅  API Plugin registered');
+
+    next();
+  })
 
 }
 

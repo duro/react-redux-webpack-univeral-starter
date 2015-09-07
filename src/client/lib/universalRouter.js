@@ -1,6 +1,6 @@
 import React from 'react';
 import Router from 'react-router';
-import createRoutes from 'routes';
+import createRoutes from 'client/routes';
 import { Provider } from 'react-redux';
 
 const getFetchData = (component = {}) => {
@@ -12,11 +12,13 @@ const getFetchData = (component = {}) => {
 export function createTransitionHook(store) {
   return (nextState, transition, callback) => {
     const { params, location: { query } } = nextState;
+
     const promises = nextState.branch
       .map(route => route.component)                          // pull out individual route components
       .filter((component) => getFetchData(component))         // only look at ones with a static fetchData()
       .map(getFetchData)                                      // pull out fetch data methods
       .map(fetchData => fetchData(store, params, query || {}));  // call fetch data methods and save promises
+
     Promise.all(promises)
       .then(() => {
         callback(); // can't just pass callback to then() because callback assumes first param is error
