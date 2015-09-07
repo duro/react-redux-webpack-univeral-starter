@@ -64,7 +64,7 @@ export default class App extends Component {
   }
 
   render() {
-    const styles = require('client/scss/App.scss');
+    const styles = require('client/less/App.less');
 
     return (
       <div>
