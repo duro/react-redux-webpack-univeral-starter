@@ -48,8 +48,14 @@ class ApiClient_ {
 
     if (__SERVER__) {
       // Prepend host and port of the API server to the path.
-      return 'http://localhost:' + ClientConfig.get('/apiPort') + adjustedPath;
+      const serverSidePath = 'http://localhost:' + ClientConfig.get('/apiPort') + adjustedPath;
+
+      console.log('Server Side API Call: ' + serverSidePath);
+
+      return serverSidePath;
     }
+
+    console.log('Client Side API Call: ' + adjustedPath);
 
     return adjustedPath;
   }

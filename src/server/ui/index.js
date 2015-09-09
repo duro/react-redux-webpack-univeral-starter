@@ -6,12 +6,10 @@ import ApiClient from 'client/lib/ApiClient';
 import universalRouter from 'client/lib/universalRouter';
 import Html from 'client/views/Html';
 import createStore from 'client/lib/redux/create';
-import PrettyError from 'pretty-error';
 import Boom from 'boom';
 
 export function register(server, options, next) {
 
-  const pretty = new PrettyError();
   const ui = server.select('ui');
 
   server.register([
@@ -34,17 +32,6 @@ export function register(server, options, next) {
         }
       }
     });
-
-    // // Load built JS/CSS
-    // ui.route({
-    //   method: ['GET'],
-    //   path: '/dist/{file*}',
-    //   handler: {
-    //     directory: {
-    //       path: path.join(__dirname, '../../../static/dist')
-    //     }
-    //   }
-    // });
 
     // Load favicon
     ui.route({
@@ -84,8 +71,6 @@ export function register(server, options, next) {
         const store = createStore(client);
         const location = new Location(request.path, request.query);
 
-        console.log(webpackIsomorphicTools.assets());
-
         if (__DISABLE_SSR__) {
           reply('<!doctype html>\n' +
             React.renderToString(<Html assets={webpackIsomorphicTools.assets()} component={<div/>} store={store}/>));
@@ -99,8 +84,6 @@ export function register(server, options, next) {
 
                 const html = '<!doctype html>\n' +
                   React.renderToString(<Html assets={webpackIsomorphicTools.assets()} component={component} store={store}/>)
-
-                console.log(html);
 
                 reply(html);
               })

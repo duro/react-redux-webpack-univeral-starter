@@ -2,7 +2,8 @@ import Confidence from 'confidence'
 import path from 'path'
 
 var criteria = {
-    env: process.env.NODE_ENV
+    nodeEnv: process.env.NODE_ENV,
+    universalEnv: __CLIENT__ ? 'client' : 'server'
 };
 
 var config = {
@@ -12,15 +13,9 @@ var config = {
   },
 
   isProduction: {
-    $filter: 'env',
+    $filter: 'nodeEnv',
     production: true,
     $default: false
-  },
-
-  port: {
-    $filter: 'env',
-    production: process.env.PORT,
-    $default: 3000
   },
 
   apiPort: 3030

@@ -4,7 +4,8 @@ import {bindActionCreators} from 'redux';
 import {arePeopleLoaded, getPeople} from 'client/ducks/people';
 
 @connect(
-  state => ({people: state.people}))
+  state => ({people: state.people})
+)
 export default class About extends Component {
 
   static fetchData(store) {
