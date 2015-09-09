@@ -4,6 +4,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import DocumentMeta from 'react-document-meta';
 import {createTransitionHook} from 'client/lib/universalRouter';
+import MainNav from 'client/components/MainNav'
 
 const title = 'React Redux Example';
 const description = 'All the modern best practices in one example.';
@@ -69,6 +70,7 @@ export default class App extends Component {
     return (
       <div>
         <DocumentMeta {...meta}/>
+        <MainNav />
         {this.props.children}
       </div>
     );

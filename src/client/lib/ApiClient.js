@@ -1,5 +1,5 @@
 import superagent from 'superagent';
-import config from 'client/config';
+import ClientConfig from 'client/config';
 
 /*
  * This silly underscore is here to avoid a mysterious "ReferenceError: ApiClient is not defined" error.
@@ -48,11 +48,10 @@ class ApiClient_ {
 
     if (__SERVER__) {
       // Prepend host and port of the API server to the path.
-      return 'http://localhost:' + config.apiPort + adjustedPath;
+      return 'http://localhost:' + ClientConfig.get('/apiPort') + adjustedPath;
     }
 
-    // Prepend `/api` to relative URL, to proxy to API server.
-    return '/api' + adjustedPath;
+    return adjustedPath;
   }
 }
 

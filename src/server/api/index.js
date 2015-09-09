@@ -6,7 +6,8 @@ export function register(server, options, next) {
 
   server.register([
 
-    require('./hello')
+    require('./hello'),
+    require('./people'),
 
   ], (err) => {
     if (err) throw err;

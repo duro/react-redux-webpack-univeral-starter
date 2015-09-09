@@ -9,12 +9,22 @@ import queryString from 'query-string';
 import createStore from 'client/lib/redux/create';
 import ApiClient from 'client/lib/ApiClient';
 import universalRouter from 'client/lib/universalRouter';
+import Immutable from 'immutable';
+
+let serializedState = window.__data;
+
+// Rehydrate serialized state into Immutable objects
+Object
+  .keys(serializedState)
+  .forEach(key => {
+    serializedState[key] = Immutable.fromJS(serializedState[key]);
+   });
 
 const history   = new BrowserHistory();
 const client    = new ApiClient();
 
 const dest      = document.getElementById('content');
-const store     = createStore(client, window.__data);
+const store     = createStore(client, serializedState);
 const search    = document.location.search;
 const query     = search && queryString.parse(search);
 const location  = new Location(document.location.pathname, query);

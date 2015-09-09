@@ -13,13 +13,8 @@ var WebpackDevServer = require('webpack-dev-server'),
     publicPath: config.output.publicPath,
     headers: {"Access-Control-Allow-Origin": "*"},
     stats: {colors: true}
-  },
-  compiler = webpack(config, function(err, stats){
-    var json = stats.toJson();
-    if (json.errors.length)
-      console.error(json.errors[0])
-  }),
-  webpackDevServer = new WebpackDevServer(compiler, serverOptions);
+  }
+  webpackDevServer = new WebpackDevServer(webpack(config), serverOptions);
 
 webpackDevServer.listen(port, host, function() {
   console.info('==> 🚧  Webpack development server listening on %s:%s', host, port);
