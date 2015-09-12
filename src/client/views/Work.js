@@ -1,20 +1,20 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {arePeopleLoaded, getPeople} from 'client/ducks/people';
-import Person from 'client/components/Person';
+import {isWorkLoaded, getWork} from 'client/ducks/work';
+import WorkItem from 'client/components/WorkItem';
 import ConnectTransitionWrapper from 'client/lib/ConnectTransitionWrapper';
 
 @ConnectTransitionWrapper()
 @connect(
-  state => ({people: state.people})
+  state => ({work: state.work})
 )
-export default class About extends Component {
+export default class Work extends Component {
 
   static fetchData(store) {
     const promises = [];
-    if (!arePeopleLoaded(store.getState())) {
-      promises.push(store.dispatch(getPeople()));
+    if (!isWorkLoaded(store.getState())) {
+      promises.push(store.dispatch(getWork()));
     }
     return Promise.all(promises);
   }
@@ -26,6 +26,7 @@ export default class About extends Component {
     tl.add( TweenMax.to(el, 2, {opacity: 1}) );
 
     tl.eventCallback('onComplete', done);
+    // done();
   }
 
   componentWillLeave(done) {
@@ -35,6 +36,7 @@ export default class About extends Component {
     tl.add( TweenMax.to(el, 2, {opacity: 0}) );
 
     tl.eventCallback('onComplete', done);
+    // done();
   }
 
   componentWillEnter(done) {
@@ -44,6 +46,7 @@ export default class About extends Component {
     tl.add( TweenMax.to(el, 2, {delay: 2, opacity: 1}) );
 
     tl.eventCallback('onComplete', done);
+    // done();
   }
 
   render() {
@@ -51,10 +54,10 @@ export default class About extends Component {
 
     return (
       <div className={[pageStyles.page]} style={{opacity: 0}}>
-        <h1 className={pageStyles.heading}>About</h1>
+        <h1 className={pageStyles.heading}>Work</h1>
         <ul>
           {
-            this.props.people.get('data').map(person => <Person data={person} key={person.get('id')} />)
+            this.props.work.get('data').map(workItem => <WorkItem data={workItem} key={workItem.get('id')} />)
           }
         </ul>
       </div>

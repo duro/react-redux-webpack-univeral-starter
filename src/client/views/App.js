@@ -1,10 +1,12 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component, PropTypes} from 'react/addons';
 import {Link} from 'react-router';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import DocumentMeta from 'react-document-meta';
 import {createTransitionHook} from 'client/lib/universalRouter';
-import MainNav from 'client/components/MainNav'
+import MainNav from 'client/components/MainNav';
+
+const { TransitionGroup } = React.addons;
 
 const title = 'React Redux Example';
 const description = 'All the modern best practices in one example.';
@@ -65,13 +67,19 @@ export default class App extends Component {
   }
 
   render() {
+    const routeKey = this.props.location.pathname;
     const styles = require('client/less/App.less');
 
     return (
       <div>
         <DocumentMeta {...meta}/>
         <MainNav />
-        {this.props.children}
+        {
+        <TransitionGroup className={styles.transitionGroup}>
+          {React.cloneElement(this.props.children || <div />, { key: routeKey })}
+        </TransitionGroup>
+        }
+        {/*this.props.children*/}
       </div>
     );
   }

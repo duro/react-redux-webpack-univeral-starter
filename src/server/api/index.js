@@ -8,6 +8,7 @@ export function register(server, options, next) {
 
     require('./hello'),
     require('./people'),
+    require('./work'),
 
   ], (err) => {
     if (err) throw err;

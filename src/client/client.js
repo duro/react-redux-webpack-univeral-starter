@@ -11,6 +11,9 @@ import ApiClient from 'client/lib/ApiClient';
 import universalRouter from 'client/lib/universalRouter';
 import Immutable from 'immutable';
 
+// Include the GSAP animation library, this will add the modules globally
+require('gsap');
+
 let serializedState = window.__data;
 
 // Rehydrate serialized state into Immutable objects
